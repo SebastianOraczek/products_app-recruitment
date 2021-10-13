@@ -18,10 +18,10 @@ function Product(props) {
     return (
         <li>
             Name: {name} Category: {category_name}
-            <button onClick={handleRemove}>REMOVE</button>
+            <button className="btn btn-danger" onClick={handleRemove}>REMOVE</button>
+            <a className="btn btn-info" href={`/products/${id}`}>EDIT</a>
         </li>
     );
 };
-
 
 export default Product;

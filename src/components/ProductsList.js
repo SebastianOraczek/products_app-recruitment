@@ -31,15 +31,16 @@ function ProductList() {
     }, [setAllProducts]);
 
     return (
-        <div>
+        <section>
+
             <h1>Products List</h1>
             <ul>
                 {allProducts.map(product => (
                     <Product key={product.id} {...product} />
                 ))}
             </ul>
-        </div>
-    )
+        </section>
+    );
 };
 
 export default ProductList;

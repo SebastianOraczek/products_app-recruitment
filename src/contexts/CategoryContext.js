@@ -7,9 +7,7 @@ export function CategoryProvider(props) {
     const [allCategories, setAllCategories] = useState([]);
 
     return (
-        <CategoryContext.Provider value={{
-            allCategories, setAllCategories
-        }}>
+        <CategoryContext.Provider value={{ allCategories, setAllCategories }}>
             {props.children}
         </CategoryContext.Provider>
     )
