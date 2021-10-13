@@ -26,7 +26,7 @@ function ProductsApp() {
                 <Route
                     exact
                     path="/products/:id"
-                    render={(routeProps) => <EditProduct id={routeProps.match.params.id} />}
+                    render={(routeProps) => <EditProduct {...routeProps} />}
                 />
                 <Route
                     exact

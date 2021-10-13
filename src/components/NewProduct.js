@@ -67,7 +67,7 @@ function NewProduct() {
                     />
                 </div>
                 <div>
-                    <select className="form-select" aria-label="Select" onChange={setNewGroup}>
+                    <select className="form-select" aria-label="select" onChange={setNewGroup}>
                         <option defaultValue="">Select category</option>
                         {allCategories.map(category => (
                             <option
