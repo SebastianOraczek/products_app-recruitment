@@ -1,10 +1,12 @@
 function Product(props) {
-    const { id, name, allCategories } = props;
-    console.log(allCategories)
+    const { id, name } = props;
 
     return (
-        <li>Name: {name} ID: {id}</li>
-    )
+        <div>
+            <li>Name: {name} ID: {id}</li>
+        </div>
+    );
 };
+
 
 export default Product;
