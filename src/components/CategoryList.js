@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 
-import Product from "./Product";
+function CategoryList() {
+    const [allCategories, setAllCategories] = useState([]);
 
-function ProductList() {
-    const [allProducts, setAllProducts] = useState([]);
-
-    // Fatching data from the server
     useEffect(() => {
         async function fetchData() {
-            const url = "https://newdemostock.gopos.pl/ajax/219/products/search_select";
+            const url = "https://newdemostock.gopos.pl/ajax/219/product_categories";
             try {
                 const res = await fetch(url, {
                     method: "GET",
@@ -19,7 +16,7 @@ function ProductList() {
                 const data = await res.json();
 
                 if (res.status === 200) {
-                    await setAllProducts(data.data);
+                    await setAllCategories(data.data);
                 } else {
                     console.log(res.status);
                 };
@@ -31,21 +28,16 @@ function ProductList() {
         fetchData();
     }, []);
 
-    const click = () => {
-        console.log(allProducts)
-    }
-
     return (
         <div>
-            <h1>Products List</h1>
+            <h1>All Categories</h1>
             <ul>
-                {allProducts.map(product => (
-                    <Product {...product} key={product.id} />
+                {allCategories.map(category => (
+                    <li key={category.id}>{category.name}</li>
                 ))}
             </ul>
-            <button onClick={click}>gdhajd</button>
         </div>
     )
 };
 
-export default ProductList;
+export default CategoryList;
