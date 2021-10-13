@@ -1,11 +1,13 @@
 // import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
+
 import useInputState from "../hooks/useInputState";
+import { CategoryContext } from "../contexts/CategoryContext";
 
 function NewProduct() {
     const [newName, setNewName] = useInputState("");
     const [newGroup, setNewGroup] = useInputState("");
-    const [allCategories, setAllCategories] = useState([]);
+    const { allCategories, setAllCategories } = useContext(CategoryContext);
 
     // Fetching all categories from the server
     useEffect(() => {

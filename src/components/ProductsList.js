@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 function ProductList() {
     const [allProducts, setAllProducts] = useState([]);
 
+    // Fetching all products from the server
     useEffect(() => {
         async function fetchData() {
             const url = "https://newdemostock.gopos.pl/ajax/219/products/groups";
@@ -30,7 +31,6 @@ function ProductList() {
 
     return (
         <section>
-
             <h1>Products List</h1>
             <ul>
                 {allProducts.map(product => (

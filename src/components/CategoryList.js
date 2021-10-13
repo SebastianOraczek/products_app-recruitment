@@ -5,6 +5,7 @@ import { CategoryContext } from "../contexts/CategoryContext";
 function CategoryList({ history }) {
     const { allCategories, setAllCategories } = useContext(CategoryContext);
 
+    // Fetching all categories from the server
     useEffect(() => {
         async function fetchData() {
             const url = "https://newdemostock.gopos.pl/ajax/219/product_categories";
@@ -39,7 +40,7 @@ function CategoryList({ history }) {
                 ))}
             </ul>
         </div>
-    )
+    );
 };
 
 export default CategoryList;

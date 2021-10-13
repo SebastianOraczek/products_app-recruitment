@@ -5,8 +5,8 @@ import CategoryList from "./CategoryList";
 import Navbar from "./Navbar";
 import NewProduct from "./NewProduct";
 import ProductList from "./ProductsList";
-import EditProduct from "./EditProduct";
 import { CategoryProvider } from "../contexts/CategoryContext";
+import EditProductForm from "./EditProductForm";
 
 function ProductsApp() {
     return (
@@ -26,18 +26,18 @@ function ProductsApp() {
                 <Route
                     exact
                     path="/products/:id"
-                    render={(routeProps) => <EditProduct {...routeProps} />}
-                />
-                <Route
-                    exact
-                    path="/new"
-                    render={(routeProps) => <NewProduct {...routeProps} />}
+                    render={(routeProps) => <EditProductForm {...routeProps} />}
                 />
                 <CategoryProvider>
                     <Route
                         exact
                         path="/categories"
                         render={(routeProps) => <CategoryList {...routeProps} />}
+                    />
+                    <Route
+                        exact
+                        path="/new"
+                        render={(routeProps) => <NewProduct {...routeProps} />}
                     />
                 </CategoryProvider>
 

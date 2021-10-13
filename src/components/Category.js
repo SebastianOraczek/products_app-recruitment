@@ -5,6 +5,7 @@ function Category(props) {
     const { id, name, history } = props;
     const [editedName, setEditedName] = useInputState(name);
 
+    // Edit categories
     const handleEdit = async () => {
         const url = `https://newdemostock.gopos.pl/ajax/219/product_categories/${id}`;
         const name = editedName;
@@ -27,7 +28,7 @@ function Category(props) {
             <input
                 type="text"
                 name={name}
-                id={name}
+                id={editedName}
                 value={editedName}
                 onChange={setEditedName}
             />
