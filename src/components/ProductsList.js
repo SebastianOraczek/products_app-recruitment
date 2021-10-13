@@ -30,13 +30,12 @@ function ProductList() {
         fetchData();
     }, [setAllProducts]);
 
-
     return (
         <div>
             <h1>Products List</h1>
             <ul>
                 {allProducts.map(product => (
-                    <Product {...product} key={product.id} />
+                    <Product key={product.id} {...product} />
                 ))}
             </ul>
         </div>

@@ -16,10 +16,10 @@ function Product(props) {
     };
 
     return (
-        <div>
-            <li>Name: {name} Category: {category_name}</li>
+        <li>
+            Name: {name} Category: {category_name}
             <button onClick={handleRemove}>REMOVE</button>
-        </div>
+        </li>
     );
 };
 
