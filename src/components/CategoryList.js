@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
+import Category from "./Category";
+import { CategoryContext } from "../contexts/CategoryContext";
 
-function CategoryList() {
-    const [allCategories, setAllCategories] = useState([]);
+function CategoryList({ history }) {
+    const { allCategories, setAllCategories } = useContext(CategoryContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -26,14 +28,14 @@ function CategoryList() {
             };
         };
         fetchData();
-    }, []);
+    }, [setAllCategories]);
 
     return (
         <div>
             <h1>All Categories</h1>
             <ul>
                 {allCategories.map(category => (
-                    <li key={category.id}>{category.name}</li>
+                    <Category key={category.id} {...category} history={history} />
                 ))}
             </ul>
         </div>

@@ -1,10 +1,11 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import CategoryList from "./CategoryList";
 
+import CategoryList from "./CategoryList";
 import Navbar from "./Navbar";
 import NewProduct from "./NewProduct";
 import ProductList from "./ProductsList";
+import { CategoryProvider } from "../contexts/CategoryContext";
 
 function ProductsApp() {
     return (
@@ -26,11 +27,13 @@ function ProductsApp() {
                     path="/new"
                     render={(routeProps) => <NewProduct {...routeProps} />}
                 />
-                <Route
-                    exact
-                    path="/categories"
-                    render={(routeProps) => <CategoryList {...routeProps} />}
-                />
+                <CategoryProvider>
+                    <Route
+                        exact
+                        path="/categories"
+                        render={(routeProps) => <CategoryList {...routeProps} />}
+                    />
+                </CategoryProvider>
             </Switch>
         </div>
     );

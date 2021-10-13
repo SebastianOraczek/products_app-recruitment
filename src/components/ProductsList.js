@@ -5,10 +5,9 @@ import Product from "./Product";
 function ProductList() {
     const [allProducts, setAllProducts] = useState([]);
 
-    // Fatching data from the server
     useEffect(() => {
         async function fetchData() {
-            const url = "https://newdemostock.gopos.pl/ajax/219/products/search_select";
+            const url = "https://newdemostock.gopos.pl/ajax/219/products/groups";
             try {
                 const res = await fetch(url, {
                     method: "GET",
@@ -29,11 +28,8 @@ function ProductList() {
             };
         };
         fetchData();
-    }, []);
+    }, [setAllProducts]);
 
-    const click = () => {
-        console.log(allProducts)
-    }
 
     return (
         <div>
@@ -43,7 +39,6 @@ function ProductList() {
                     <Product {...product} key={product.id} />
                 ))}
             </ul>
-            <button onClick={click}>gdhajd</button>
         </div>
     )
 };

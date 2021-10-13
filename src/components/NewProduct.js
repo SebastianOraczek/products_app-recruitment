@@ -1,11 +1,13 @@
+// import axios from "axios";
 import { useEffect, useState } from "react";
 import useInputState from "../hooks/useInputState";
 
 function NewProduct() {
     const [newName, setNewName] = useInputState("");
-    const [newCategory, setNewCategory] = useInputState("");
+    const [newGroup, setNewGroup] = useInputState("");
     const [allCategories, setAllCategories] = useState([]);
 
+    // Fetching all categories from the server
     useEffect(() => {
         async function fetchCategories() {
             const url = `https://newdemostock.gopos.pl/ajax/219/product_categories/search_select`;
@@ -14,8 +16,6 @@ function NewProduct() {
                     method: "GET",
                     headers: {
                         Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e",
-                        contentType: "application/json",
-                        Accept: "application/json"
                     }
                 });
                 const data = await res.json();
@@ -31,28 +31,26 @@ function NewProduct() {
             };
         };
         fetchCategories();
-    }, []);
+    }, [setAllCategories]);
 
-    const handleSubmit = async (evt) => {
-        evt.preventDefault();
+    // // Creating a new product
+    // const handleSubmit = async (evt) => {
+    //     evt.preventDefault();
 
-        const url = `https://newdemostock.gopos.pl/ajax/219/products/`;
-        const newProduct = { name: newName, category: newCategory };
-        // try {
-        //     await fetch(url, {
-        //         method: "POST",
-        //         headers: {
-        //             Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e",
-        //             "Access-Control-Allow-Origin": "*"
-        //         },
-        //         body: JSON.stringify(newProduct)
-        //     });
-
-        // } catch (err) {
-        //     console.log(err);
-        // };
-        console.log(newProduct)
-    };
+    //     const url = `https://newdemostock.gopos.pl/ajax/219/products`;
+    //     const category_name = newGroup;
+    //     const name = newName;
+    //     try {
+    //         await axios.post(url, { category_name, name }, {
+    //             headers: {
+    //                 Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e",
+    //                 "Content-Type": "application/json"
+    //             }
+    //         });
+    //     } catch (err) {
+    //         console.log(err);
+    //     };
+    // };
 
     return (
         <div>
@@ -69,7 +67,7 @@ function NewProduct() {
                     />
                 </div>
                 <div>
-                    <select className="form-select" aria-label="Select" onChange={setNewCategory}>
+                    <select className="form-select" aria-label="Select" onChange={setNewGroup}>
                         <option defaultValue="">Select category</option>
                         {allCategories.map(category => (
                             <option
@@ -81,7 +79,7 @@ function NewProduct() {
                         ))}
                     </select>
                 </div>
-                <button onClick={handleSubmit}>Add Product</button>
+                {/* <button onClick={handleSubmit}>Add Product</button> */}
             </form>
         </div>
     );

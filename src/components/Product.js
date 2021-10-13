@@ -1,5 +1,5 @@
 function Product(props) {
-    const { id, label, group } = props;
+    const { id, name, category_name } = props;
 
     const handleRemove = async () => {
         const url = `https://newdemostock.gopos.pl/ajax/219/products/${id}`;
@@ -17,7 +17,7 @@ function Product(props) {
 
     return (
         <div>
-            <li>Name: {label} Category: {group}</li>
+            <li>Name: {name} Category: {category_name}</li>
             <button onClick={handleRemove}>REMOVE</button>
         </div>
     );
