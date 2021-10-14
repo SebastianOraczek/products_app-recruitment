@@ -65,16 +65,17 @@ function NewProduct({ history }) {
 
         try {
             const url = "https://newdemostock.gopos.pl/ajax/219/products";
-            const body = JSON.stringify({
+            const body = {
                 category_id: newCategory,
                 name: newName,
+                measure_type: "LITER",
                 type: productType,
-                measure_type: measureType,
-                tax_id: oneTax,
-            });
-            await fetch(url, {
-                method: "POST",
-                body,
+                tax_id: oneTax
+            };
+
+
+            await axios.post(url, body, {
+                // method: "POST",
                 headers: {
                     Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e",
                     Accept: "application/json",
@@ -82,7 +83,8 @@ function NewProduct({ history }) {
                     "Access-Control-Allow-Headers": "X-Requested-With",
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                }
+                    "Content-Encoding": "gzip"
+                },
             });
         } catch (err) {
             console.log(err);
