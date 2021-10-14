@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect } from "react";
 
 import useInputState from "../hooks/useInputState";
+import useToggleState from "../hooks/useToggleState";
 import { CategoryContext } from "../contexts/CategoryContext";
 import headers from "../utils/headers";
 
@@ -11,6 +12,8 @@ function NewProduct({ history }) {
     const [newName, setNewName] = useInputState("");
     const [newCategory, setNewCategory] = useInputState("");
     const [oneTax, setOneTax] = useInputState("");
+    const [measureType, setMeasureType] = useInputState("");
+    const [isAlert, toggleIsAlert] = useToggleState(false);
 
     const { allTaxes, setAllTaxes, allCategories, setAllCategories } = useContext(CategoryContext);
 
@@ -67,58 +70,74 @@ function NewProduct({ history }) {
             const body = {
                 category_id: newCategory,
                 name: newName,
-                measure_type: "LITER",
+                measure_type: measureType,
                 type: "BASIC",
                 tax_id: oneTax
             };
 
             await axios.post(url, body, { headers, });
+            history.push("/products");
 
         } catch (err) {
+            toggleIsAlert();
             console.log(err);
         };
-
-        history.push("/products");
     };
 
     return (
         <div className="container">
             <h1 className="d-flex justify-content-center mb-5 mt-5 display-4">New Product</h1>
+            {isAlert && (
+                <div className="alert alert-danger alert-dismissible fade show container" role="alert">
+                    These fields are required. If you want to create a new product, please fill these in.
+                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            )}
             <div className="row">
-                <div className="col-lg4 offset-lg4 col-md-6 offset-md-3 col-sm-6 offset-sm-3">
-                    <form>
-                        <div className="mb-3">
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                value={newName}
-                                onChange={setNewName}
-                                className="form-control inputs"
-                                placeholder="Enter product name"
-                                autoFocus
-                            />
-                        </div>
-                        <div>
-                            <select className="form-select mb-3 inputs" aria-label="select_category" onChange={setNewCategory}>
-                                <option defaultValue="">Select category</option>
-                                {allCategories.map(category => (
-                                    <option value={category.id} key={category.id}>{category.label}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <select className="form-select mb-3 inputs" aria-label="select_taxes" onChange={setOneTax}>
-                                <option defaultValue="">Select tax</option>
-                                {allTaxes.map(tax => (
-                                    <option value={tax.id} key={tax.id}>{tax.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="buttons">
-                            <button className="btn btn-success" type="submit" onClick={handleSubmit}>Add product</button>
-                        </div>
-                    </form>
+                <div className="card col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-6 offset-sm-3">
+                    <div className="card-body">
+                        <form>
+                            <div className="mb-3">
+                                <input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    value={newName}
+                                    onChange={setNewName}
+                                    className="form-control inputs"
+                                    placeholder="Enter product name"
+                                    autoFocus
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <select className="form-select mb-3 inputs" aria-label="select_category" onChange={setNewCategory} required>
+                                    <option defaultValue="">Select category</option>
+                                    {allCategories.map(category => (
+                                        <option value={category.id} key={category.id}>{category.label}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <select className="form-select mb-3 inputs" aria-label="select_taxes" onChange={setOneTax} required>
+                                    <option defaultValue="">Select tax</option>
+                                    {allTaxes.map(tax => (
+                                        <option value={tax.id} key={tax.id}>{tax.name}</option>
+                                    ))}
+                                </select>
+                                <select className="form-select mb-3 inputs" aria-label="measure_type" onChange={setMeasureType} required>
+                                    <option defaultValue="">Select measure type</option>
+                                    <option value="ITEM">Item</option>
+                                    <option value="KILOGRAM">Kilogram</option>
+                                    <option value="LITER">Litr</option>
+                                    <option value="PACKAGE">Package</option>
+                                </select>
+                            </div>
+                            <div className="buttons">
+                                <button className="btn btn-success" type="submit" onClick={handleSubmit}>Add product</button>
+                            </div>
+                        </form>
+                    </div>
                 </div >
             </div >
         </div >

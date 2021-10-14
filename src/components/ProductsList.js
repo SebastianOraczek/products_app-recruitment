@@ -16,6 +16,7 @@ function ProductList() {
                     headers
                 });
                 const data = await res.json();
+                console.log(data.data)
 
                 if (res.status === 200) {
                     await setAllProducts(data.data);
