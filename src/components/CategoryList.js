@@ -14,10 +14,7 @@ function CategoryList({ history }) {
         async function fetchData() {
             const url = "https://newdemostock.gopos.pl/ajax/219/product_categories";
             try {
-                const res = await fetch(url, {
-                    method: "GET",
-                    headers
-                });
+                const res = await fetch(url, { method: "GET", headers });
                 const data = await res.json();
 
                 if (res.status === 200) {
@@ -47,7 +44,7 @@ function CategoryList({ history }) {
                             </div>
                         )}
                         <div className="row">
-                            <div className="col-lg4 offset-lg4 col-md-6 offset-md-3 col-sm-6 offset-sm-3">
+                            <div className="col-md-6 offset-md-3 col-sm-6 offset-sm-3">
                                 {allCategories.map(category => (
                                     <Category key={category.id} {...category} history={history} toggleIsAlert={toggleIsAlert} />
                                 ))}

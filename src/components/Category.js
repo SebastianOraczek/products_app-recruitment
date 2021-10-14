@@ -2,7 +2,6 @@ import axios from "axios";
 
 import useInputState from "../hooks/useInputState";
 import headers from "../utils/headers";
-
 import "../styles/Category.css";
 
 function Category(props) {
@@ -24,25 +23,23 @@ function Category(props) {
     };
 
     return (
-        <div className="col-lg4 offset-lg4 col-md-6 offset-md-3 col-sm-6 offset-sm-3">
-            <div className="card mb-3">
-                <div className="card-body">
-                    <form className="needs-validation">
-                        <input
-                            type="text"
-                            name={name}
-                            id={editedName}
-                            value={editedName}
-                            onChange={setEditedName}
-                            className="form-control"
-                        />
-                        <div className="buttons mt-3">
-                            <button className="btn btn-info text-white" onClick={handleEdit}>Edit</button>
-                        </div>
-                    </form>
-                </div>
+        <div className="card mb-3 col-md-6 offset-md-3 col-sm">
+            <div className="card-body">
+                <form className="needs-validation">
+                    <input
+                        type="text"
+                        name={name}
+                        id={editedName}
+                        value={editedName}
+                        onChange={setEditedName}
+                        className="form-control"
+                    />
+                    <div className="buttons mt-3">
+                        <button className="btn btn-info text-white" onClick={handleEdit}>Edit</button>
+                    </div>
+                </form>
             </div>
-        </div >
+        </div>
     );
 };
 

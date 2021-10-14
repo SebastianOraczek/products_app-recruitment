@@ -28,7 +28,7 @@ function CategoryForm({ history }) {
             <h1 className="d-flex justify-content-center mb-5 mt-5 display-4">New Category</h1>
             {isAlert && (
                 <div className="alert alert-danger alert-dismissible fade show container" role="alert">
-                    Category name is required. TPlease try again.
+                    Category name is required. Please try again.
                     <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             )}

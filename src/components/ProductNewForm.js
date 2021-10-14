@@ -11,10 +11,9 @@ import "../styles/ProductNewForm.css"
 function NewProduct({ history }) {
     const [newName, setNewName] = useInputState("");
     const [newCategory, setNewCategory] = useInputState("");
+    const [isAlert, toggleIsAlert] = useToggleState(false);
     const [oneTax, setOneTax] = useInputState("");
     const [measureType, setMeasureType] = useInputState("");
-    const [isAlert, toggleIsAlert] = useToggleState(false);
-
     const { allTaxes, setAllTaxes, allCategories, setAllCategories } = useContext(CategoryContext);
 
     useEffect(() => {
@@ -59,7 +58,7 @@ function NewProduct({ history }) {
             };
         };
         fetchTaxes();
-    }, [setAllCategories]);
+    }, [setAllCategories, setAllTaxes]);
 
     // Create a new product
     const handleSubmit = async (evt) => {

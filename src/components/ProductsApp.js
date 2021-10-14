@@ -28,12 +28,7 @@ function ProductsApp() {
                     <Route
                         exact
                         path="/products/:id"
-                        render={(routeProps) => <ProductEdit{...routeProps} />}
-                    />
-                    <Route
-                        exact
-                        path="/categories"
-                        render={(routeProps) => <CategoryList {...routeProps} />}
+                        render={(routeProps) => <ProductEdit {...routeProps} />}
                     />
                     <Route
                         exact
@@ -42,11 +37,15 @@ function ProductsApp() {
                     />
                     <Route
                         exact
+                        path="/categories"
+                        render={(routeProps) => <CategoryList {...routeProps} />}
+                    />
+                    <Route
+                        exact
                         path="/new"
                         render={(routeProps) => <ProductNewForm {...routeProps} />}
                     />
                 </CategoryProvider>
-
             </Switch>
         </div>
     );
