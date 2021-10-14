@@ -12,6 +12,7 @@ function Navbar() {
                     <div className="navbar-nav">
                         <a className="nav-link " aria-current="page" href="/categories">Categories</a>
                         <a className="nav-link " aria-current="page" href="/new">New Product</a>
+                        <a className="nav-link " aria-current="page" href="/categories/new">New Category</a>
                     </div>
                 </div>
             </div>

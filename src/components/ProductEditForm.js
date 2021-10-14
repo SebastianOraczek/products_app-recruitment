@@ -6,8 +6,7 @@ function EditProductForm(props) {
     const id = props.match.params.id;
     const [individualProduct, setIndividualProduct] = useState("");
 
-
-    // Fetching all products from the server
+    // Fetching a individual products from the server
     useEffect(() => {
         async function fetchData() {
             const url = `https://newdemostock.gopos.pl/ajax/219/products/${id}`;

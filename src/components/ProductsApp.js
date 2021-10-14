@@ -3,10 +3,11 @@ import { Route, Switch } from "react-router-dom";
 
 import CategoryList from "./CategoryList";
 import Navbar from "./Navbar";
-import NewProduct from "./NewProduct";
+import ProductNewForm from "./ProductNewForm";
 import ProductList from "./ProductsList";
 import { CategoryProvider } from "../contexts/CategoryContext";
-import EditProductForm from "./EditProductForm";
+import ProductEditForm from "./ProductEditForm";
+import CategoryForm from "./CategoryForm";
 
 function ProductsApp() {
     return (
@@ -26,7 +27,7 @@ function ProductsApp() {
                 <Route
                     exact
                     path="/products/:id"
-                    render={(routeProps) => <EditProductForm {...routeProps} />}
+                    render={(routeProps) => <ProductEditForm {...routeProps} />}
                 />
                 <CategoryProvider>
                     <Route
@@ -36,8 +37,13 @@ function ProductsApp() {
                     />
                     <Route
                         exact
+                        path="/categories/new"
+                        render={(routeProps) => <CategoryForm {...routeProps} />}
+                    />
+                    <Route
+                        exact
                         path="/new"
-                        render={(routeProps) => <NewProduct {...routeProps} />}
+                        render={(routeProps) => <ProductNewForm {...routeProps} />}
                     />
                 </CategoryProvider>
 
