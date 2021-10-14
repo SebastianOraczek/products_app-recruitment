@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import Product from "./Product";
+import headers from "../utils/headers";
 
 function EditProductForm(props) {
     const id = props.match.params.id;
@@ -13,9 +14,7 @@ function EditProductForm(props) {
             try {
                 const res = await fetch(url, {
                     method: "GET",
-                    headers: {
-                        Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e"
-                    }
+                    headers
                 });
                 const data = await res.json();
 

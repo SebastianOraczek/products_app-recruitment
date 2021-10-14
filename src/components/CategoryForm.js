@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import useInputState from "../hooks/useInputState";
+import headers from "../utils/headers";
 
 function CategoryForm({ history }) {
     const [newCategory, setNewCategory] = useInputState("");
@@ -12,11 +13,7 @@ function CategoryForm({ history }) {
         const url = `https://newdemostock.gopos.pl/ajax/219/product_categories`;
         const name = newCategory;
         try {
-            await axios.post(url, { name }, {
-                headers: {
-                    Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e",
-                }
-            });
+            await axios.post(url, { name }, { headers });
         } catch (err) {
             console.log(err);
         };

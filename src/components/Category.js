@@ -1,5 +1,7 @@
 import axios from "axios";
+
 import useInputState from "../hooks/useInputState";
+import headers from "../utils/headers";
 
 function Category(props) {
     const { id, name, history } = props;
@@ -10,12 +12,7 @@ function Category(props) {
         const url = `https://newdemostock.gopos.pl/ajax/219/product_categories/${id}`;
         const name = editedName;
         try {
-            await axios.put(url, { name }, {
-                headers: {
-                    Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e",
-                    "Content-Type": "application/json"
-                }
-            });
+            await axios.put(url, { name }, { headers });
         } catch (err) {
             console.log(err);
         };

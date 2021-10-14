@@ -1,6 +1,8 @@
 import { useEffect, useContext } from "react";
+
 import Category from "./Category";
 import { CategoryContext } from "../contexts/CategoryContext";
+import headers from "../utils/headers";
 
 function CategoryList({ history }) {
     const { allCategories, setAllCategories } = useContext(CategoryContext);
@@ -12,9 +14,7 @@ function CategoryList({ history }) {
             try {
                 const res = await fetch(url, {
                     method: "GET",
-                    headers: {
-                        Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e"
-                    }
+                    headers
                 });
                 const data = await res.json();
 

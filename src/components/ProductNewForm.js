@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 
 import useInputState from "../hooks/useInputState";
 import { CategoryContext } from "../contexts/CategoryContext";
+import headers from "../utils/headers";
 
 function NewProduct({ history }) {
     const [newName, setNewName] = useInputState("");
@@ -10,6 +11,7 @@ function NewProduct({ history }) {
     const [oneTax, setOneTax] = useInputState("");
     const [measureType, setMeasureType] = useInputState("");
     const [productType, setProductType] = useInputState("");
+
 
     const { allTaxes, setAllTaxes, allCategories, setAllCategories } = useContext(CategoryContext);
 
@@ -20,9 +22,7 @@ function NewProduct({ history }) {
             try {
                 const res = await fetch(url, {
                     method: "GET",
-                    headers: {
-                        Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e"
-                    }
+                    headers
                 });
                 const data = await res.json();
 
@@ -43,9 +43,7 @@ function NewProduct({ history }) {
             const url = "https://newdemostock.gopos.pl/ajax/219/taxes"
             try {
                 const res = await axios.get(url, {
-                    headers: {
-                        Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e"
-                    }
+                    headers
                 });
 
                 if (res.status === 200) {
@@ -67,21 +65,14 @@ function NewProduct({ history }) {
 
         try {
             const url = "https://newdemostock.gopos.pl/ajax/219/products";
-            const body = JSON.stringify({
-                category_id: newCategory,
+            await axios.post(url, {
+                category_id: parseInt(newCategory),
                 name: newName,
                 type: productType,
                 measure_type: measureType,
-                tax_id: oneTax,
-            });
-            await axios.post(url, {
-                body,
-                headers: {
-                    Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e",
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                }
+                tax_id: parseInt(oneTax),
+            }, {
+                headers
             });
         } catch (err) {
             console.log(err);
