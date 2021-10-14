@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import Product from "./Product";
 import headers from "../utils/headers";
 
 function ProductList() {
@@ -34,10 +35,7 @@ function ProductList() {
             <h1>Products List</h1>
             <ul>
                 {allProducts.map(product => (
-                    <div key={product.id}>
-                        <li>Name: {product.name} Category: {product.category_name}</li>
-                        <a className="btn btn-info" href={`/products/${product.id}`}>EDIT</a>
-                    </div>
+                    <Product key={product.id} {...product} />
                 ))}
             </ul>
         </section>

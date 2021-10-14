@@ -1,25 +1,23 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
-import Product from "./Product";
 import headers from "../utils/headers";
 
 function EditProductForm(props) {
     const id = props.match.params.id;
-    const [individualProduct, setIndividualProduct] = useState("");
 
-    // Fetching a individual products from the server
     useEffect(() => {
-        async function fetchData() {
-            const url = `https://newdemostock.gopos.pl/ajax/219/products/${id}`;
+        // Fetching a individual product
+        async function fetchProduct() {
+            const url = `https://newdemostock.gopos.pl/ajax/219/products/${id}`
             try {
-                const res = await fetch(url, {
-                    method: "GET",
-                    headers
-                });
-                const data = await res.json();
+                const res = await axios.get(url, { headers });
+                const data = res.data.data;
+                console.log(res)
 
                 if (res.status === 200) {
-                    await setIndividualProduct(data.data);
+                    // await setName(data.name);
+                    // await setCategory(data.category_id);
                 } else {
                     console.log(res.status);
                 };
@@ -28,15 +26,12 @@ function EditProductForm(props) {
                 console.log(err);
             };
         };
-        fetchData();
-    }, [setIndividualProduct]);
-
+        fetchProduct();
+    });
     return (
         <div>
-            <h1>EDIT FORM</h1>
-            <Product {...individualProduct} />
+            hi
         </div>
     )
 };
-
 export default EditProductForm;

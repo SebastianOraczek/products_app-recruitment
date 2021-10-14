@@ -65,14 +65,24 @@ function NewProduct({ history }) {
 
         try {
             const url = "https://newdemostock.gopos.pl/ajax/219/products";
-            await axios.post(url, {
-                category_id: parseInt(newCategory),
+            const body = JSON.stringify({
+                category_id: newCategory,
                 name: newName,
                 type: productType,
                 measure_type: measureType,
-                tax_id: parseInt(oneTax),
-            }, {
-                headers
+                tax_id: oneTax,
+            });
+            await fetch(url, {
+                method: "POST",
+                body,
+                headers: {
+                    Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e",
+                    Accept: "application/json",
+                    // "Content-Type": "application/json",
+                    "Access-Control-Allow-Headers": "X-Requested-With",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                }
             });
         } catch (err) {
             console.log(err);
