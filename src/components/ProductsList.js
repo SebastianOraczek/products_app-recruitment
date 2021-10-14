@@ -31,13 +31,15 @@ function ProductList() {
     }, [setAllProducts]);
 
     return (
-        <section>
-            <h1>Products List</h1>
-            <ul>
-                {allProducts.map(product => (
-                    <Product key={product.id} {...product} />
-                ))}
-            </ul>
+        <section className="container">
+            <h1 className="d-flex justify-content-center mb-5 mt-5 display-4">Products List</h1>
+            <div className="row">
+                <div className="col-lg4 offset-lg4 col-md-6 offset-md-3 col-sm-6 offset-sm-3">
+                    {allProducts.map(product => (
+                        <Product key={product.id} {...product} />
+                    ))}
+                </div>
+            </div>
         </section>
     );
 };

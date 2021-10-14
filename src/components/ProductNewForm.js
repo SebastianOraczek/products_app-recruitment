@@ -5,6 +5,8 @@ import useInputState from "../hooks/useInputState";
 import { CategoryContext } from "../contexts/CategoryContext";
 import headers from "../utils/headers";
 
+import "../styles/ProductNewForm.css"
+
 function NewProduct({ history }) {
     const [newName, setNewName] = useInputState("");
     const [newCategory, setNewCategory] = useInputState("");
@@ -80,38 +82,46 @@ function NewProduct({ history }) {
     };
 
     return (
-        <div>
-            <h1>New Product</h1>
-            <form>
-                <div>
-                    <label htmlFor="name">Enter a product name: </label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        value={newName}
-                        onChange={setNewName}
-                    />
-                </div>
-                <div>
-                    <select className="form-select" aria-label="select_category" onChange={setNewCategory}>
-                        <option defaultValue="">Select category</option>
-                        {allCategories.map(category => (
-                            <option value={category.id} key={category.id}>{category.label}</option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <select className="form-select" aria-label="select_taxes" onChange={setOneTax}>
-                        <option defaultValue="">Select tax</option>
-                        {allTaxes.map(tax => (
-                            <option value={tax.id} key={tax.id}>{tax.name}</option>
-                        ))}
-                    </select>
-                </div>
-                <button type="submit" onClick={handleSubmit}>Add product</button>
-            </form>
-        </div>
+        <div className="container">
+            <h1 className="d-flex justify-content-center mb-5 mt-5 display-4">New Product</h1>
+            <div className="row">
+                <div className="col-lg4 offset-lg4 col-md-6 offset-md-3 col-sm-6 offset-sm-3">
+                    <form>
+                        <div className="mb-3">
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                value={newName}
+                                onChange={setNewName}
+                                className="form-control inputs"
+                                placeholder="Enter product name"
+                                autoFocus
+                            />
+                        </div>
+                        <div>
+                            <select className="form-select mb-3 inputs" aria-label="select_category" onChange={setNewCategory}>
+                                <option defaultValue="">Select category</option>
+                                {allCategories.map(category => (
+                                    <option value={category.id} key={category.id}>{category.label}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <select className="form-select mb-3 inputs" aria-label="select_taxes" onChange={setOneTax}>
+                                <option defaultValue="">Select tax</option>
+                                {allTaxes.map(tax => (
+                                    <option value={tax.id} key={tax.id}>{tax.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="buttons">
+                            <button className="btn btn-success" type="submit" onClick={handleSubmit}>Add product</button>
+                        </div>
+                    </form>
+                </div >
+            </div >
+        </div >
     );
 };
 

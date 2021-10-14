@@ -1,10 +1,9 @@
 import ProductsApp from './components/ProductsApp';
-
-import './App.css';
+import "./styles/App.css"
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <ProductsApp />
     </div>
   );

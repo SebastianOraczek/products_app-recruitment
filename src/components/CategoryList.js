@@ -33,12 +33,14 @@ function CategoryList({ history }) {
 
     return (
         <div>
-            <h1>All Categories</h1>
-            <ul>
-                {allCategories.map(category => (
-                    <Category key={category.id} {...category} history={history} />
-                ))}
-            </ul>
+            <h1 className="d-flex justify-content-center mb-5 mt-5 display-4">All Categories</h1>
+            <div className="row">
+                <div className="col-lg4 offset-lg4 col-md-6 offset-md-3 col-sm-6 offset-sm-3">
+                    {allCategories.map(category => (
+                        <Category key={category.id} {...category} history={history} />
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };
