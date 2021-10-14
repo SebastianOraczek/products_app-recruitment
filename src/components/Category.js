@@ -36,8 +36,8 @@ function Category(props) {
                             onChange={setEditedName}
                             className="form-control"
                         />
-                        <div className="buttons">
-                            <button className="btn btn-info text-white mt-2" onClick={handleEdit}>Edit</button>
+                        <div className="buttons mt-2">
+                            <button className="btn btn-info text-white" onClick={handleEdit}>Edit</button>
                         </div>
                     </form>
                 </div>

@@ -61,7 +61,7 @@ function NewProduct({ history }) {
         fetchTaxes();
     }, [setAllCategories]);
 
-    // Create a new Product
+    // Create a new product
     const handleSubmit = async (evt) => {
         evt.preventDefault();
 
