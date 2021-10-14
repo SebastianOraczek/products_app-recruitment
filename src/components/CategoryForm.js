@@ -47,8 +47,8 @@ function CategoryForm({ history }) {
                                 onChange={setNewCategory}
                                 required
                             />
-                            <div className="buttons">
-                                <button type="submit" className="btn btn-success mt-3" onClick={handleAddCategory}>Add Category</button>
+                            <div className="buttons mt-3">
+                                <button type="submit" className="btn btn-success" onClick={handleAddCategory}>Add Category</button>
                             </div>
                         </form>
                     </div>

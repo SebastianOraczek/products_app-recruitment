@@ -20,7 +20,7 @@ function NewProduct({ history }) {
     useEffect(() => {
         // Fetching all categories from the server
         async function fetchCategories() {
-            const url = "https://newdemostock.gopos.pl/ajax/219/product_categories/search_select";
+            const url = "https://newdemostock.gopos.pl/ajax/219/product_categories";
             try {
                 const res = await fetch(url, {
                     method: "GET",
@@ -114,7 +114,7 @@ function NewProduct({ history }) {
                                 <select className="form-select mb-3 inputs" aria-label="select_category" onChange={setNewCategory} required>
                                     <option defaultValue="">Select category</option>
                                     {allCategories.map(category => (
-                                        <option value={category.id} key={category.id}>{category.label}</option>
+                                        <option value={category.id} key={category.id}>{category.name}</option>
                                     ))}
                                 </select>
                             </div>

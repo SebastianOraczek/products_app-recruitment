@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 import ProductNewForm from "./ProductNewForm";
 import ProductList from "./ProductsList";
 import { CategoryProvider } from "../contexts/CategoryContext";
-import ProductEditForm from "./ProductEditForm";
+import ProductEdit from "./ProductEdit";
 import CategoryForm from "./CategoryForm";
 
 function ProductsApp() {
@@ -24,12 +24,12 @@ function ProductsApp() {
                     path="/products"
                     render={(routeProps) => <ProductList {...routeProps} />}
                 />
-                <Route
-                    exact
-                    path="/products/:id"
-                    render={(routeProps) => <ProductEditForm {...routeProps} />}
-                />
                 <CategoryProvider>
+                    <Route
+                        exact
+                        path="/products/:id"
+                        render={(routeProps) => <ProductEdit{...routeProps} />}
+                    />
                     <Route
                         exact
                         path="/categories"
