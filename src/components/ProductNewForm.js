@@ -9,9 +9,6 @@ function NewProduct({ history }) {
     const [newName, setNewName] = useInputState("");
     const [newCategory, setNewCategory] = useInputState("");
     const [oneTax, setOneTax] = useInputState("");
-    const [measureType, setMeasureType] = useInputState("");
-    const [productType, setProductType] = useInputState("");
-
 
     const { allTaxes, setAllTaxes, allCategories, setAllCategories } = useContext(CategoryContext);
 
@@ -69,21 +66,18 @@ function NewProduct({ history }) {
                 category_id: newCategory,
                 name: newName,
                 measure_type: "LITER",
-                type: productType,
+                type: "BASIC",
                 tax_id: oneTax
             };
 
-
             await axios.post(url, body, {
-                // method: "POST",
                 headers: {
                     Authorization: "fd9ba9e1-0788-4e8f-ac46-a43df43e205e",
                     Accept: "application/json",
-                    // "Content-Type": "application/json",
-                    "Access-Control-Allow-Headers": "X-Requested-With",
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                    "Content-Encoding": "gzip"
+                    // "Access-Control-Allow-Headers": "X-Requested-With",
+                    // "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                    // "Content-Encoding": "gzip"
                 },
             });
         } catch (err) {
@@ -121,23 +115,6 @@ function NewProduct({ history }) {
                         {allTaxes.map(tax => (
                             <option value={tax.id} key={tax.id}>{tax.name}</option>
                         ))}
-                    </select>
-                </div>
-                <div>
-                    <select className="form-select" aria-label="select_measure_type" onChange={setMeasureType}>
-                        <option defaultValue="">Select measure type</option>
-                        <option value="sztuka">sztuka</option>
-                        <option value="kilogram">kilogram</option>
-                        <option value="litr">litr</option>
-                        <option value="opakowanie">opakowanie</option>
-                    </select>
-                </div>
-                <div>
-                    <select className="form-select" aria-label="select_product_type" onChange={setProductType}>
-                        <option defaultValue="">Select aproduct type</option>
-                        <option value="BASIC">BASIC</option>
-                        <option value="PACKAGE">PACKAGE</option>
-                        <option value="COMPOSITE">COMPOSITE</option>
                     </select>
                 </div>
                 <button type="submit" onClick={handleSubmit}>Add product</button>
