@@ -110,7 +110,7 @@ function EditProductForm(props) {
                     <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             )}
-            <div className="row">
+            <div className="row ps-2 pe-2">
                 <div className="card col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-6 offset-sm-3">
                     <div className="card-body">
                         <form>
