@@ -1,3 +1,5 @@
+import "../styles/Navbar.css"
+
 function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-inherit fixed-top">

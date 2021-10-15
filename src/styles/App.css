@@ -18,3 +18,10 @@ h1 {
 .fs-6 {
     font-family: 'Balsamiq Sans', cursive;
 }
+
+
+@media (max-width: 990px) {
+    h1 {
+        padding-top: 2rem;
+    }
+}

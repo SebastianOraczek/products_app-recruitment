@@ -31,7 +31,7 @@ function CategoryList({ history }) {
                                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         )}
-                        <div className="row">
+                        <div className="row ps-2 pe-2">
                             <div className="col-md-6 offset-md-3 col-sm-6 offset-sm-3">
                                 {allCategories.map(category => (
                                     <Category key={category.id} {...category} history={history} toggleIsAlert={toggleIsAlert} />
