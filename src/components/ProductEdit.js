@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useContext, useState, useCallback } from "react";
 
+import { fetchData } from "../utils/fetchFunc";
 import useToggleState from "../hooks/useToggleState";
 import { CategoryContext } from "../contexts/CategoryContext";
 import headers from "../utils/headers";
@@ -18,28 +19,20 @@ function EditProductForm(props) {
 
     // Fetching all categories
     const fetchCategories = useCallback(async () => {
-        const url = "https://newdemostock.gopos.pl/ajax/219/product_categories/search_select";
-        const res = await fetch(url, { method: "GET", headers });
-        const data = await res.json();
-
-        if (res.status === 200) {
-            await setAllCategories(data.data);
-        } else {
-            console.log(`Error with status ${res.status}`);
-        };
+        fetchData("https://newdemostock.gopos.pl/ajax/219/product_categories/search_select", setAllCategories);
     }, [setAllCategories]);
 
     // Fetching an individual product
     const fetchProduct = useCallback(async () => {
         const url = `https://newdemostock.gopos.pl/ajax/219/products/${id}`;
-        const res = await fetch(url, { method: "GET", headers });
-        const data = await res.json();
+        const res = await axios.get(url, { headers });
+        const data = res.data.data;
 
         const setDetails = async () => {
-            await setCategory(data.data.category_id);
-            await setName(data.data.name);
-            await setMeasureType(data.data.measure_type);
-            await setTax(data.data.tax_id);
+            await setCategory(data.category_id);
+            await setName(data.name);
+            await setMeasureType(data.measure_type);
+            await setTax(data.tax_id);
         };
 
         if (res.status === 200) {
@@ -52,15 +45,22 @@ function EditProductForm(props) {
     // Fetching category name
     const fetchCategoryName = useCallback(async () => {
         const url = `https://newdemostock.gopos.pl/ajax/219/products/groups/${id}`;
-        const res = await fetch(url, { method: "GET", headers });
-        const data = await res.json();
+        const res = await axios.get(url, { headers });
+        const data = res.data.data.category_name;
 
         if (res.status === 200) {
-            setCategoryName(data.data.category_name);
+            setCategoryName(data);
         } else {
             console.log(`Error with status ${res.status}`);
         };
     }, [id]);
+
+
+    useEffect(() => {
+        fetchCategories();
+        fetchProduct();
+        fetchCategoryName();
+    }, [fetchCategories, fetchProduct, fetchCategoryName]);
 
     // Editing a individual product
     const handleEdit = async (evt) => {
@@ -100,12 +100,6 @@ function EditProductForm(props) {
     const handleChangeCategory = (evt) => {
         setCategory(evt.target.value);
     };
-
-    useEffect(() => {
-        fetchCategories();
-        fetchProduct();
-        fetchCategoryName();
-    }, [fetchCategories, fetchProduct, fetchCategoryName]);
 
     return (
         <section className="container">

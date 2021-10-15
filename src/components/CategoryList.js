@@ -1,8 +1,8 @@
-import { useEffect, useContext, useCallback } from "react";
+import { useEffect, useContext, memo, useCallback } from "react";
 
+import { fetchData } from "../utils/fetchFunc";
 import Category from "./Category";
 import { CategoryContext } from "../contexts/CategoryContext";
-import headers from "../utils/headers";
 import useToggleState from "../hooks/useToggleState";
 
 function CategoryList({ history }) {
@@ -10,21 +10,13 @@ function CategoryList({ history }) {
     const [isAlert, toggleIsAlert] = useToggleState(false);
 
     // Fetching all categories from the server
-    const fetchData = useCallback(async () => {
-        const url = "https://newdemostock.gopos.pl/ajax/219/product_categories";
-        const res = await fetch(url, { method: "GET", headers });
-        const data = await res.json();
-
-        if (res.status === 200) {
-            await setAllCategories(data.data);
-        } else {
-            console.log(`Error with status ${res.status}`);
-        };
-    }, [setAllCategories]);
+    const fetchCategories = useCallback(async () => {
+        fetchData("https://newdemostock.gopos.pl/ajax/219/product_categories", setAllCategories);
+    }, [setAllCategories])
 
     useEffect(() => {
-        fetchData();
-    }, [fetchData]);
+        fetchCategories();
+    }, [fetchCategories]);
 
     return (
         <div>
@@ -57,4 +49,4 @@ function CategoryList({ history }) {
     );
 };
 
-export default CategoryList;
+export default memo(CategoryList);

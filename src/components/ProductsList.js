@@ -1,27 +1,15 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, memo } from "react";
 
+import { fetchData } from "../utils/fetchFunc";
 import Product from "./Product";
-import headers from "../utils/headers";
 
 function ProductList() {
     const [allProducts, setAllProducts] = useState([]);
 
-    // Fetching all products from the server
-    const fetchData = useCallback(async () => {
-        const url = "https://newdemostock.gopos.pl/ajax/219/products/groups";
-        const res = await fetch(url, { method: "GET", headers });
-        const data = await res.json();
-
-        if (res.status === 200) {
-            await setAllProducts(data.data);
-        } else {
-            console.log(`Error with status ${res.status}`);
-        };
-    }, [setAllProducts]);
-
+    // Fetch all products
     useEffect(() => {
-        fetchData();
-    }, [fetchData]);
+        fetchData("https://newdemostock.gopos.pl/ajax/219/products/groups", setAllProducts);
+    }, []);
 
     return (
         <div>
@@ -48,4 +36,4 @@ function ProductList() {
     );
 };
 
-export default ProductList;
+export default memo(ProductList);
