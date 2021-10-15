@@ -16,34 +16,34 @@ function ProductsApp() {
             <Switch>
                 <Route
                     exact
-                    path="/"
-                    render={(routeProps) => <ProductList {...routeProps} />}
+                    path={"/"}
+                    component={(routeProps) => <ProductList {...routeProps} />}
                 />
                 <Route
                     exact
-                    path="/products"
-                    render={(routeProps) => <ProductList {...routeProps} />}
+                    path={"/products"}
+                    component={(routeProps) => <ProductList {...routeProps} />}
                 />
                 <CategoryProvider>
                     <Route
                         exact
-                        path="/products/:id"
-                        render={(routeProps) => <ProductEdit {...routeProps} />}
+                        path={"/products/:id"}
+                        component={(routeProps) => <ProductEdit {...routeProps} />}
                     />
                     <Route
                         exact
-                        path="/categories/new"
-                        render={(routeProps) => <CategoryForm {...routeProps} />}
+                        path={"/categories/new"}
+                        component={(routeProps) => <CategoryForm {...routeProps} />}
                     />
                     <Route
                         exact
-                        path="/categories"
-                        render={(routeProps) => <CategoryList {...routeProps} />}
+                        path={"/categories"}
+                        component={(routeProps) => <CategoryList {...routeProps} />}
                     />
                     <Route
                         exact
-                        path="/new"
-                        render={(routeProps) => <ProductNewForm {...routeProps} />}
+                        path={"/new"}
+                        component={(routeProps) => <ProductNewForm {...routeProps} />}
                     />
                 </CategoryProvider>
             </Switch>

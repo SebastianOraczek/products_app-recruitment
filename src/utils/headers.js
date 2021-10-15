@@ -5,7 +5,6 @@ const headers = {
     "Access-Control-Allow-Origin": "*",
 
     // "Access-Control-Allow-Headers": "X-Requested-With",
-    // "Access-Control-Allow-Origin": "*",
     // "Access-Control-Allow-Methods": 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
     // "Content-Encoding": "gzip"
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useCallback } from "react";
 
 import useInputState from "../hooks/useInputState";
 import useToggleState from "../hooks/useToggleState";
@@ -16,49 +16,30 @@ function NewProduct({ history }) {
     const [measureType, setMeasureType] = useInputState("");
     const { allTaxes, setAllTaxes, allCategories, setAllCategories } = useContext(CategoryContext);
 
-    useEffect(() => {
-        // Fetching all categories from the server
-        async function fetchCategories() {
-            const url = "https://newdemostock.gopos.pl/ajax/219/product_categories";
-            try {
-                const res = await fetch(url, {
-                    method: "GET",
-                    headers
-                });
-                const data = await res.json();
+    // Fetching all categories from the server
+    const fetchCategories = useCallback(async () => {
+        const url = "https://newdemostock.gopos.pl/ajax/219/product_categories";
+        const res = await fetch(url, { method: "GET", headers });
+        const data = await res.json();
 
-                if (res.status === 200) {
-                    await setAllCategories(data.data);
-                } else {
-                    console.log(res.status);
-                };
-
-            } catch (err) {
-                console.log(err);
-            };
+        if (res.status === 200) {
+            await setAllCategories(data.data);
+        } else {
+            console.log(`Error with status ${res.status}`);
         };
-        fetchCategories();
+    }, [setAllCategories]);
 
-        // Fetching all taxes
-        async function fetchTaxes() {
-            const url = "https://newdemostock.gopos.pl/ajax/219/taxes"
-            try {
-                const res = await axios.get(url, {
-                    headers
-                });
+    // Fetching all taxes
+    const fetchTaxes = useCallback(async () => {
+        const url = "https://newdemostock.gopos.pl/ajax/219/taxes";
+        const res = await axios.get(url, { headers });
 
-                if (res.status === 200) {
-                    await setAllTaxes(res.data.data);
-                } else {
-                    console.log(res.status);
-                };
-
-            } catch (err) {
-                console.log(err);
-            };
+        if (res.status === 200) {
+            await setAllTaxes(res.data.data);
+        } else {
+            console.log(`Error with status ${res.status}`);
         };
-        fetchTaxes();
-    }, [setAllCategories, setAllTaxes]);
+    }, [setAllTaxes]);
 
     // Create a new product
     const handleSubmit = async (evt) => {
@@ -83,12 +64,18 @@ function NewProduct({ history }) {
         };
     };
 
+    useEffect(() => {
+        fetchCategories();
+        fetchTaxes();
+    }, [fetchCategories, fetchTaxes]);
+
     return (
         <div className="container">
             <h1 className="d-flex justify-content-center mb-5 mt-5 display-4">New Product</h1>
             {isAlert && (
                 <div className="alert alert-danger alert-dismissible fade show container" role="alert">
-                    These fields are required. If you want to create a new product, please fill these in.
+                    <p><strong>These fields are required or product name is taken.</strong></p>
+                    <p> If you want to create a new product, please fill fields in.</p>
                     <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             )}

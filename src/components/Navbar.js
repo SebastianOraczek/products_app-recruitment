@@ -1,5 +1,3 @@
-import { withRouter } from "react-router";
-
 function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-inherit fixed-top">
@@ -20,4 +18,4 @@ function Navbar() {
     )
 };
 
-export default withRouter(Navbar);
+export default Navbar;

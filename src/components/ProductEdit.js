@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useCallback } from "react";
 
 import useToggleState from "../hooks/useToggleState";
 import { CategoryContext } from "../contexts/CategoryContext";
@@ -16,67 +16,51 @@ function EditProductForm(props) {
     const [isAlert, toggleIsAlert] = useToggleState(false);
     const { allCategories, setAllCategories } = useContext(CategoryContext);
 
-    useEffect(() => {
-        // Fetching all categories
-        async function fetchCategories() {
-            const url = "https://newdemostock.gopos.pl/ajax/219/product_categories/search_select";
-            try {
-                const res = await fetch(url, { method: "GET", headers });
-                const data = await res.json();
+    // Fetching all categories
+    const fetchCategories = useCallback(async () => {
+        const url = "https://newdemostock.gopos.pl/ajax/219/product_categories/search_select";
+        const res = await fetch(url, { method: "GET", headers });
+        const data = await res.json();
 
-                if (res.status === 200) {
-                    await setAllCategories(data.data);
-                } else {
-                    console.log(res.status);
-                };
-
-            } catch (err) {
-                console.log(err);
-            };
+        if (res.status === 200) {
+            await setAllCategories(data.data);
+        } else {
+            console.log(`Error with status ${res.status}`);
         };
-        // Fetching an individual product
-        async function fetchProduct() {
-            const url = `https://newdemostock.gopos.pl/ajax/219/products/${id}`;
-            try {
-                const res = await fetch(url, { method: "GET", headers });
-                const data = await res.json();
+    }, [setAllCategories]);
 
-                if (res.status === 200) {
-                    await setCategory(data.data.category_id);
-                    await setName(data.data.name);
-                    await setMeasureType(data.data.measure_type);
-                    await setTax(data.data.tax_id);
-                } else {
-                    console.log(res.status);
-                };
+    // Fetching an individual product
+    const fetchProduct = useCallback(async () => {
+        const url = `https://newdemostock.gopos.pl/ajax/219/products/${id}`;
+        const res = await fetch(url, { method: "GET", headers });
+        const data = await res.json();
 
-            } catch (err) {
-                console.log(err);
-            };
+        const setDetails = async () => {
+            await setCategory(data.data.category_id);
+            await setName(data.data.name);
+            await setMeasureType(data.data.measure_type);
+            await setTax(data.data.tax_id);
         };
 
-        // Fetching category name
-        async function fetchCategoryName() {
-            const url = `https://newdemostock.gopos.pl/ajax/219/products/groups/${id}`;
-            try {
-                const res = await fetch(url, { method: "GET", headers });
-                const data = await res.json();
+        if (res.status === 200) {
+            setDetails();
+        } else {
+            console.log(`Error with status ${res.status}`);
+        };
+    }, [id]);
 
-                if (res.status === 200) {
-                    setCategoryName(data.data.category_name);
-                } else {
-                    console.log(res.status);
-                };
+    // Fetching category name
+    const fetchCategoryName = useCallback(async () => {
+        const url = `https://newdemostock.gopos.pl/ajax/219/products/groups/${id}`;
+        const res = await fetch(url, { method: "GET", headers });
+        const data = await res.json();
 
-            } catch (err) {
-                console.log(err);
-            };
-        }
-
-        fetchCategories();
-        fetchProduct();
-        fetchCategoryName();
-    }, [setAllCategories, id]);
+        if (res.status === 200) {
+            setCategoryName(data.data.category_name);
+        } else {
+            console.log(`Error with status ${res.status}`);
+        };
+    }, [id]);
 
     // Editing a individual product
     const handleEdit = async (evt) => {
@@ -104,24 +88,24 @@ function EditProductForm(props) {
     // Removing a individual product
     const handleRemove = async (evt) => {
         evt.preventDefault();
-
         const url = `https://newdemostock.gopos.pl/ajax/219/products/${id}`
-
-        try {
-            await axios.delete(url, { headers });
-            history.push("/products");
-        } catch (err) {
-            console.log(err);
-        };
+        await axios.delete(url, { headers });
+        history.push("/products");
     };
 
-    // Changing name and category state
+    // Changing name and category states
     const handleChangeName = (evt) => {
         setName(evt.target.value);
     };
     const handleChangeCategory = (evt) => {
         setCategory(evt.target.value);
     };
+
+    useEffect(() => {
+        fetchCategories();
+        fetchProduct();
+        fetchCategoryName();
+    }, [fetchCategories, fetchProduct, fetchCategoryName]);
 
     return (
         <section className="container">
